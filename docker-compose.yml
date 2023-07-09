@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: blog
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+      TZ: Asia/Seoul
+    volumes:
+      - ./.local/mysql/db:/var/lib/mysql # mysql db 생성 경로
+      - ./.local/mysql/conf.d:/dtc/mysql/conf.d # mysql configuration
+      - ./scripts/intidb/:/docker-entrypoint-initdb.d
+    ports:
+      - 3306:3306
