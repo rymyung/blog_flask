@@ -1,18 +1,30 @@
 version: '3.8'
 
 services:
-  db:
+  mysqldb:
     image: mysql:latest
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: blog
+      MYSQL_DATABASE: blog_db
       MYSQL_USER: admin
       MYSQL_PASSWORD: admin
       TZ: Asia/Seoul
     volumes:
       - ./.local/mysql/db:/var/lib/mysql # mysql db 생성 경로
       - ./.local/mysql/conf.d:/dtc/mysql/conf.d # mysql configuration
-      - ./scripts/intidb/:/docker-entrypoint-initdb.d
+      - ./scripts/initdb/:/docker-entrypoint-initdb.d
     ports:
       - 3306:3306
+  
+  mongodb:
+    image: mongo:latest
+    restart: always
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=admin
+      - MONGO_INITDB_DATABASE=blog_session_db
+    volumes:
+      - ./.local/mongodb:/data/db
+    ports:
+      - 27017:27017
