@@ -1,6 +1,8 @@
-CREATE TABLE test_table
+CREATE TABLE blog_db.user_info
 (
-    id  varchar(128) not null comment 'id'
-    primary key (id)
+    USER_ID  INT UNSIGNED NOT NULL AUTO_INCREMENT comment 'id'm
+    USER_EMAIL VARCHAR(100) NOT NULL,
+    BLOG_ID CHAR(4)
+    primary key (USER_ID)
 )
-    comment '테스트 테이블';
+    comment 'USER TABLE';
